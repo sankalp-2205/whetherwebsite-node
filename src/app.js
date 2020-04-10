@@ -4,6 +4,7 @@ const express = require('express');
 const geocode = require('../utils/geocoding.js');
 const whether = require('../utils/whether.js');
 const app = express();
+const port = process.env.PORT || 3000
 app.set('view engine','hbs');
 app.get('',(req,res)=>{
     res.render('index',{
@@ -48,7 +49,7 @@ app.get('*',(req,res)=>{
         title:'Whether App',
     })
 });
-app.listen(3000,()=>
+app.listen(port,()=>
 {
     console.log("Listening to port 3000");
 })

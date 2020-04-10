@@ -9,7 +9,7 @@ const mylocation = document.querySelector('#location');
     message1.textContent = ('Loading...')
     message2.textContent = ('Loading..')
     const loc = (mylocation.value);
-    fetch('http://localhost:3000/whether?address='+loc).then((response)=>{
+    fetch('/whether?address='+loc).then((response)=>{
     response.json().then((data)=>{
         if(data.error)
         {
