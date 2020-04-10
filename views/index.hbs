@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+ <head>
+ <title>Whether Report</title>
+ <meta charset="utf-8">
+ <meta name="viewport" content="width=device-width,
+initial-scale=1">
+<link href="css/bootstrap.min.css" rel="stylesheet">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/cupertino/jquery-ui.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>  
+<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+<script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+<link href='https://fonts.googleapis.com/css?family=Anonymous Pro'rel='stylesheet' type='text/css'>
+ </head>
+ <style>
+    #page1{
+    background: url(bg.jpg);
+    background-position: center center;
+    background-attachment: fixed;
+    background-size: 100% 100%;
+    color: #fff;
+    text-align: center;
+    font-family: Lobster, serif;
+   };
+#locationbox2
+{
+    color: white;
+    height: 200px;
+    display: none;
+};
+#locationbox
+{
+    color: white;
+    height: 100px;
+    display: none;
+};
+
+ </style>
+    <body>
+
+ <!--Page1-->
+ <div data-role="page" id="page1" data-theme="b">
+  <div data-role="header">
+ <div data-role="navbar">
+ <ul>
+ <li><a href="#page1" datatransition="pop" data-icon="home" class="ui-btn-active
+ui-state-persist" >Home</a></li>
+ </ul>
+ </div>
+ </div>
+
+ <div role="main" class="ui-content">
+ <!--title-->
+ <div class="header">
+ <h1 style="font-size: xx-large;font-family:fantasy;color:palegoldenrod">{{title}}</h1>
+<p style="font-size: x-large;">Accurate And Precise</p>
+ <div class="ui-grid-a">
+ <div class="ui-block-a">
+     <div id = "locationbox" style="display: none;">
+       <!--  <img src="Home.png" width="50px" height="50px"> -->
+          <p id = "message1" style="font-size: x-large; font-family:cursive;"></p>
+     </div>
+
+
+</div>
+ <div class="ui-block-b">
+     <div id = 'locationbox2' style="display: none;">
+        <img src="weather.png" width="50px" height="50px" alt="Weather image"> 
+         <p id = "message2" style="font-size: x-large; font-family:cursive;"></p>
+     </div>
+
+</div>
+
+
+</div>
+ </div>
+<form>
+     <input type="text" name="location" id="location" placeholder="Location" value="">
+    <div >
+        <button class="ui-btn ui-corner-all ui-shadow">Search</button>
+    </div>
+</form>
+<div>
+   
+</div>
+ </div>
+
+
+ 
+ 
+ <div data-role = "footer" data-position = "fixed">
+            <h1>&copy; Sankalp Agrawal</h1>
+        </div>
+
+ </div><!--Page1-->
+
+ 
+ 
+        
+        <script src="js/bootstrap.min.js"></script>
+  
+    <script>
+const message1 = document.querySelector('#message1');
+const message2 = document.querySelector('#message2');
+const mylocation = document.querySelector('#location');
+
+ document.addEventListener('submit',(event)=>
+{
+    event.preventDefault();
+    message1.textContent = ('Loading...')
+    message2.textContent = ('Loading..')
+    const loc = (mylocation.value);
+    fetch('http://localhost:3000/whether?address='+loc).then((response)=>{
+    response.json().then((data)=>{
+        if(data.error)
+        {
+            $("#locationbox2").show();
+            $("#locationbox").show();
+            message1.textContent = ("Enter a valid location")
+            console.log("Try another search");
+            message2.textContent = ("Cannot find temperature")
+            console.log("Try another search");
+        }
+        else
+        {
+            $("#locationbox2").show();
+            $("#locationbox").show();
+            console.log(data.Location);
+            message1.textContent = (data.Location);
+            console.log(data.Temperature);
+            $("#message2").html(data.Summary+"<br>Current :"+data.Temperature+"&deg;C <br> Min : "+data.Min+"&deg;C<br> Max : "+data.Max+"&deg;C")
+        }
+    })
+})
+})
+</script>    
+       
+    </body>
+</html>

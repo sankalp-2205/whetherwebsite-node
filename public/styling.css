@@ -1,0 +1,10 @@
+#page1{
+    background: url(bg.jpg);
+    background-position: center center;
+    background-attachment: fixed;
+    background-size: 100% 100%;
+    color: #fff;
+    text-align: center;
+    font-family: Lobster, serif;
+   };
+
